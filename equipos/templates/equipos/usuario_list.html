@@ -1,0 +1,54 @@
+{% extends "equipos/index.html" %}
+
+{% block titulo %}
+<h2 class="font-weight-light">Registro Usuarios</h2>
+{% endblock titulo %}
+
+
+{% block contenido %}
+
+<table>
+    <tr>
+        <td width="200"><h2>Usuarios</h2></td>
+        <td>
+            <a
+            href="{% url 'usuarioCreate' %}"
+            class="btn btn-primary btn-sm"
+            ><i class="fa fa-plus fa-lg" title="Crear"> </i>
+            </a>
+        </td>        
+    </tr>
+</table>
+
+
+<table class="table table-dark">
+    <thead>
+        <tr>
+            <th scope="col">Nombre</th>
+            <th scope="col">Ubicación</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for usuario in usuarios_list %}
+        <tr>
+            <td>{{ usuario.nombre }}</td>
+            <td>{{ usuario.ubicacion }}</td>
+            <td>
+                <a
+                  href="{% url 'usuarioUpdate' usuario.nombre %}"
+                  class="btn btn-primary"
+                  style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;"
+                  ><i class="fa fa-edit fa-sm" title="Edit Record"></i>
+                </a>
+                <a
+                  href="{% url 'usuarioDelete' usuario.nombre %}"
+                  class="btn btn-danger"
+                  style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;"
+                  ><i class="fa fa-trash fa-sm" title="Delete Record"></i>
+                </a>                
+            </td>
+        </tr>
+        {% endfor %}
+     </tbody>
+</table>
+{% endblock contenido %}

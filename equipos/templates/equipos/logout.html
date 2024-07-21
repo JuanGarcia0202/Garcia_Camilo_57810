@@ -1,0 +1,14 @@
+{% extends "equipos/index.html" %}
+
+{% block titulo %}
+
+<h2 class="font-weight-light">Logout</h2>
+{% endblock titulo %}
+
+{% block contenido %}
+{% csrf_token %}
+<h4>
+    <p style="color:red" align="center"> Se ha deslogueado con éxito.</p>
+</h4>
+
+{% endblock contenido %}

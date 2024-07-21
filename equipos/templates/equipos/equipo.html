@@ -1,0 +1,84 @@
+{% extends "equipos/index.html" %}
+
+{% block titulo %}
+<h2 class="font-weight-light">Registro Equipos</h2>
+{% endblock titulo %}
+
+
+{% block contenido %}
+
+<table>
+    <tr>
+        <td width="200"><h2>Registrar Equipos</h2></td>
+        <td>
+            <a
+            href="{% url 'equipo' %}"
+            class="btn btn-primary btn-sm"
+            ><i class="fa fa-plus fa-lg" title="Crear"> </i>
+            </a>
+        </td>        
+    </tr>
+</table>
+
+
+<form action="" method="post">
+    {% csrf_token %}
+    {{ equipoForm.as_table }} 
+    <input type="hidden" name="equipo_submit" value="1">
+    <input type="submit" value="Agregar Equipo">
+</form>
+
+<h2>Buscar Equipos</h2>
+
+<form method="get" action="{% url 'equipo' %}">
+    {{ search_form.as_p }}
+    <input type="submit" value="Buscar">
+</form>
+
+<h2>Lista de Equipos en la base de datos</h2>
+
+<p>Cantidad de equipos: {{ equipos.count }}</p>
+
+<table class="table table-dark">
+    <thead>
+        <tr>
+            <th scope="col">Equipo</th>
+            <th scope="col">Marca</th>
+            <th scope="col">Modelo</th>
+            <th scope="col">Serie</th>
+            <th scope="col">Placa</th>
+            <th scope="col">Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for equipo in equipos %}
+        <tr>
+            <td>{{ equipo.equipo }}</td>
+            <td>{{ equipo.marca }}</td>
+            <td>{{ equipo.modelo }}</td>
+            <td>{{ equipo.serie }}</td>
+            <td>{{ equipo.placa }}</td>
+            <td>
+                <a
+                  href="{% url 'equiposUpdate' equipo.equipo %}"
+                  class="btn btn-primary"
+                  style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;"
+                  ><i class="fa fa-edit fa-sm" title="Edit Record"></i>
+                </a>
+                <a
+                  href="{% url 'equiposDelete' equipo.equipo %}"
+                  class="btn btn-danger"
+                  style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;"
+                  ><i class="fa fa-trash fa-sm" title="Delete Record"></i>
+                </a>                
+            </td> 
+        </tr>
+        {% empty %}
+        <tr>
+            <td colspan="5">No hay equipos en la base de datos.</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+{% endblock contenido %}

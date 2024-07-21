@@ -1,0 +1,75 @@
+{% extends "equipos/index.html" %}
+
+{% block titulo %}
+
+<h2 class="font-weight-light">Observaciones</h2>
+{% endblock titulo %}
+
+
+{% block contenido %}
+
+<table>
+    <tr>
+        <td width="200"><h2>Registrar observación</h2></td>
+        <td>
+            <a
+            href="{% url 'observacion' %}"
+            class="btn btn-primary btn-sm"
+            ><i class="fa fa-plus fa-lg" title="Crear"> </i>
+            </a>
+        </td>        
+    </tr>
+</table>
+
+<form action="" method="post">
+    {% csrf_token %}
+    {{ observacionForm.as_table }} 
+    <input type="hidden" name="observacion_submit" value="1">
+    <input type="submit" value="Agregar Observacion">
+</form>
+
+<h2>Buscar Observaciones</h2>
+
+<form method="get" action="{% url 'observacion' %}">
+    {{ search_form.as_p }}
+    <input type="submit" value="Buscar">
+</form>
+
+<h2>Lista de Observaciones en la base de datos</h2>
+
+<p>Cantidad de observaciones: {{ observaciones.count }}</p>
+
+<table class="table table-dark">
+    <thead>
+        <tr>
+            <th scope="col">Observación</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for observacion in observaciones %}
+        <tr>
+            <td>{{ observacion.observacion }}</td>
+            <td>
+                <a
+                  href=""
+                  class="btn btn-primary"
+                  style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;"
+                  ><i class="fa fa-edit fa-sm" title="Edit Record"></i>
+                </a>
+                <a
+                  href=""
+                  class="btn btn-danger"
+                  style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;"
+                  ><i class="fa fa-trash fa-sm" title="Delete Record"></i>
+                </a>                
+            </td> 
+        </tr>
+        {% empty %}
+        <tr>
+            <td colspan="2">No hay observaciones en la base de datos.</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+{% endblock contenido %}

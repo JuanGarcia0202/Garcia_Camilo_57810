@@ -1,0 +1,32 @@
+{% extends "equipos/index.html" %}
+
+{% block titulo %}
+<h2 class="font-weight-light">Registro Usuarios</h2>
+{% endblock titulo %}
+
+
+{% block contenido %}
+
+<table class="table table-dark">
+    <thead>
+        <tr>
+            <th scope="col">Nombre</th>
+            <th scope="col">Ubicación</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for usuario in usuario %}
+        <tr>
+            <td>{{ usuario.nombre }}</td>
+            <td>{{ usuario.ubicacion }}</td>
+            <td>
+        </tr>
+        {% empty %}
+        <tr>
+            <td colspan="2">No hay usuarios en la base de datos.</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+{% endblock contenido %}
